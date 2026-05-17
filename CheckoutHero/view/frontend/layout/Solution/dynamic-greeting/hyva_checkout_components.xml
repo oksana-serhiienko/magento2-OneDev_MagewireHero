@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <referenceBlock name="hyva.checkout.components">
+        <container name="checkout.customerinfo.section"
+                   htmlTag="section"
+                   htmlId="customer-information">
+            <block name="checkout.customerinfo.title"
+                   template="Hyva_Checkout::section/title.phtml"
+                   before="-">
+                <action method="setTitle">
+                    <argument name="title" translate="true" xsi:type="string">Customer Info</argument>
+                </action>
+            </block>
+            <block name="checkout.customerinfo"
+                   template="OneDev_CheckoutHero::checkout/customer-information.phtml">
+                <!-- ToDo: Bind the Magewire CustomerInfo component with the arguments -->
+                <arguments>
+                    <argument name="magewire" xsi:type="object">
+                        \OneDev\CheckoutHero\Magewire\CustomerInfo
+                    </argument>
+                </arguments>
+            </block>
+        </container>
+        <referenceContainer name="checkout.shipping-details.section">
+            <block name="checkout.emitmessages.test"
+                   template="OneDev_CheckoutHero::checkout/emit-messages-test.phtml">
+                <arguments>
+                    <argument name="magewire" xsi:type="object">
+                        \OneDev\CheckoutHero\Magewire\EmitMessages
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </referenceBlock>
+</page>

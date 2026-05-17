@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:hyva.io:checkout:etc/hyva_checkout.xsd">
+    <checkout name="onedevcheckout"
+              label="OneDev Checkout"
+              layout="2columns"
+              parent="default">
+        <step name="customerinfo"
+              label="Customer Information"
+              route="customer-info"
+              layout="2columns"
+              after="shipping"
+              before="payment">
+            <condition name="is_customer" if="is_customer"/>
+        </step>
+        <step name="shipping"
+              label="Shipping and Billing">
+        </step>
+        <step name="payment"
+              label="Payments">
+        </step>
+    </checkout>
+</config>

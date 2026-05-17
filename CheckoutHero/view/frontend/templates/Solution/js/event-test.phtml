@@ -1,0 +1,47 @@
+<?php declare(strict_types=1);
+
+/**
+ * OneDev_OksanaSerhiienko
+ */
+
+use Hyva\Theme\ViewModel\HyvaCsp;
+
+/** @var Escaper $escaper */
+/** @var Template $block */
+/** @var HyvaCsp $hyvaCsp */
+
+?>
+
+<script>
+    (() => {
+        window.addEventListener('checkout:step:loaded', event => {
+            console.log('loaded', event);
+        })
+        window.addEventListener('checkout:validation:success', event => {
+            console.log('validated', event);
+        })
+        document.addEventListener('magewire:load', () => {
+            let selectedShippingMethod = null;
+
+            window.addEventListener('checkout:shipping:method-activate', event => {
+                selectedShippingMethod = event.detail.method;
+            })
+
+            window.addEventListener('checkout:step:loaded', event => {
+                const currentStep = event.detail?.route
+
+                if (currentStep === 'customer-info' && selectedShippingMethod) {
+                    const customerInfoComponent = Magewire.find('checkout.customerinfo')
+                    if (customerInfoComponent) {
+                        customerInfoComponent.setShippingOffer(selectedShippingMethod)
+                    }
+                }
+            })
+        })
+
+        window.addEventListener('checkout:payment:method-activate', event => {
+            console.log(`Selected payment method: ${event.detail.method}`);
+        }, {once: true})
+    })()
+</script>
+<?php $hyvaCsp->registerInlineScript(); ?>

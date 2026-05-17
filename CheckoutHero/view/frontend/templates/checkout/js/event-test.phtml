@@ -1,0 +1,32 @@
+<?php declare(strict_types=1);
+/**
+ * OneDev_OksanaSerhiienko
+ */
+
+use Hyva\Theme\ViewModel\HyvaCsp;
+
+/** @var Escaper $escaper */
+/** @var Template $block */
+/** @var HyvaCsp $hyvaCsp */
+
+?>
+
+<script>
+    (() => {
+        window.addEventListener('checkout:step:loaded', event => {
+            console.log('loaded', event);
+        })
+        window.addEventListener('checkout:validation:success', event => {
+            console.log('validated', event);
+        })
+        window.addEventListener('checkout:shipping:method-activate', event => {
+            console.log(`Selected shipping method: ${event.detail.method}`);
+        })
+        window.addEventListener('checkout:payment:method-activate', event => {
+            console.log(`Selected payment method: ${event.detail.method}`);
+        }, {once: true})
+    })()
+</script>
+<?php $hyvaCsp->registerInlineScript(); ?>
+
+

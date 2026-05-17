@@ -1,0 +1,20 @@
+<?php declare(strict_types=1);
+/**
+ * OneDev_OksanaSerhiienko
+ */
+
+/** @var Escaper $escaper */
+/** @var Template $block */
+/** @var EmitExamples $magewire */
+
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+use OneDev\MagewireHero\Magewire\EmitExamples;
+
+?>
+
+<div>
+    <h1>Emit message:</h1>
+    <p><?= $magewire->receivedMessage ?></p>
+</div>
+

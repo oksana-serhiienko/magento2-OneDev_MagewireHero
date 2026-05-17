@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="magewirehero_magewire_examples" frontName="magewire-hero-magewire-examples">
+            <module name="OneDev_MagewireHero"/>
+        </route>
+        <route id="magewirehero_magewire_practice_examples" frontName="magewire-hero-magewire-practice-examples">
+            <module name="OneDev_MagewireHero"/>
+        </route>
+        <route id="magewirehero_magewire_practice_examples_todo" frontName="magewire-hero-magewire-practice-examples-todo">
+            <module name="OneDev_MagewireHero"/>
+        </route>
+        <route id="magewirehero_magewire_examples_form" frontName="magewire-hero-magewire-examples-form">
+            <module name="OneDev_MagewireHero"/>
+        </route>
+    </router>
+</config>

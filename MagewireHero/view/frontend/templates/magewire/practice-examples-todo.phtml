@@ -1,0 +1,111 @@
+<?php declare(strict_types=1);
+/**
+ * OneDev_OksanaSerhiienko
+ */
+
+/** @var Escaper $escaper */
+/** @var Template $block */
+/** @var PracticeExamplesToDo $magewire */
+
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+use OneDev\MagewireHero\Magewire\PracticeExamplesToDo;
+?>
+
+<div class="p-6 bg-white shadow-md rounded space-y-8">
+    <!-- Task 1: Hello Greeting -->
+    <div>
+        <h2 class="text-lg font-semibold">Task 1: Basic Greeting</h2>
+        <p>Bind an input field to the <code>$greetingName</code> property and show a greeting when clicking the button.</p>
+
+        <!-- ToDo: Add Magewire input binding -->
+        <input class="mt-2 border rounded p-2 w-full" placeholder="Enter your name" />
+
+        <!-- ToDo: Add Magewire click handler -->
+        <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded">Greet</button>
+
+        <!-- ToDo: Show greeting only when isGreetingVisible is true -->
+        <!-- Example: <p>Hello, Oksana!</p> -->
+
+        <details class="mt-2 text-sm text-gray-600">
+            <summary class="cursor-pointer underline">Hint</summary>
+            Use <code>wire:model</code> on the input and <code>wire:click</code> on the button.
+        </details>
+    </div>
+
+    <!-- Task 2: Counter -->
+    <div>
+        <h2 class="text-lg font-semibold">Task 2: Simple Counter</h2>
+        <p>Create buttons to increment and reset a number stored in <code>$counter</code>.</p>
+
+        <!-- ToDo: Display counter -->
+        <p class="text-xl font-bold">0</p>
+
+        <!-- ToDo: Add Magewire click handler -->
+        <button class="px-4 py-2 bg-green-500 text-white rounded">+1</button>
+        <button class="ml-2 px-4 py-2 bg-gray-500 text-white rounded">Reset</button>
+
+        <details class="mt-2 text-sm text-gray-600">
+            <summary class="cursor-pointer underline">Hint</summary>
+            Define <code>incrementCounter</code> and <code>resetCounter</code> methods in your component.
+        </details>
+    </div>
+
+    <!-- Task 3: Profile Inputs -->
+    <div>
+        <h2 class="text-lg font-semibold">Task 3: Profile Form</h2>
+        <p>Bind inputs to <code>$profile['first_name']</code> and <code>$profile['last_name']</code>.</p>
+
+        <!-- ToDo: Add Magewire input bindings -->
+        <input class="mt-2 border p-2 w-full" placeholder="First Name" />
+        <input class="mt-2 border p-2 w-full" placeholder="Last Name" />
+
+        <!-- ToDo: Display full name -->
+        <p class="mt-2 text-gray-700">
+            Hello, [First Name] [Last Name]
+        </p>
+
+        <details class="mt-2 text-sm text-gray-600">
+            <summary class="cursor-pointer underline">Hint</summary>
+            Use dot notation like <code>wire:model="profile.first_name"</code>.
+        </details>
+    </div>
+
+    <!-- Task 4: Order Lookup -->
+    <div>
+        <h2 class="text-lg font-semibold">Task 4: Order Lookup</h2>
+        <p>Enter an order ID to check the order status and total amount.</p>
+
+        <!-- ToDo: Add input binding and button click handler -->
+        <input class="mt-2 border p-2 w-full" placeholder="Enter Order ID (e.g., 000000003)" />
+        <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded">Lookup</button>
+
+        <!-- ToDo: Show result or error messages -->
+        <!-- Example output block:
+        <div class="mt-3 p-4 bg-gray-100 rounded">
+            <p><strong>Status:</strong> Processing</p>
+            <p><strong>Total:</strong> 199.99 USD</p>
+        </div>
+        -->
+
+        <details class="mt-2 text-sm text-gray-600">
+            <summary class="cursor-pointer underline">Hint</summary>
+            Use <code>wire:model</code> to bind input and <code>wire:click</code> to trigger order lookup using Magento logic.
+        </details>
+    </div>
+
+    <!-- Task 5: Magento Success Message -->
+    <div>
+        <h2 class="text-lg font-semibold">Task 5: Submit Input & Show Message</h2>
+        <p>Type a message and create success notification when submitted.</p>
+
+        <!-- ToDo: Add input binding and click handler -->
+        <input class="mt-2 border p-2 w-full" placeholder="Write your message..." />
+        <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded">Submit</button>
+
+        <details class="mt-2 text-sm text-gray-600">
+            <summary class="cursor-pointer underline">Hint</summary>
+            Use Magento's <code>Magento\Framework\Message\ManagerInterface</code> to trigger a success message.
+        </details>
+    </div>
+</div>

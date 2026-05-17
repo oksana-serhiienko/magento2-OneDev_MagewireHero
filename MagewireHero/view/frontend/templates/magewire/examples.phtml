@@ -1,0 +1,201 @@
+<?php declare(strict_types=1);
+/**
+ * OneDev_OksanaSerhiienko
+ */
+
+/** @var Escaper $escaper */
+/** @var Template $block */
+
+/** @var Examples $magewire */
+/** @var EmitExamples $magewireEmit */
+
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+use OneDev\MagewireHero\Magewire\Examples;
+
+?>
+
+<div class="example p-6 bg-white shadow-md rounded-md space-y-6">
+    <!-- Section: Title Binding -->
+    <!-- This displays a dynamic heading from the Magewire component -->
+    <h1>
+        <?= $escaper->escapeHtml($magewire->title) ?>
+    </h1>
+
+    <!-- Real-time binding  to 'title' Magewire property -->
+    <input type="text"
+           wire:model="title"
+           class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+           placeholder="Type something..."
+    />
+
+    <!-- Section: Action Buttons -->
+    <!-- These buttons interact with Magewire component methods or state -->
+    <div class="flex space-x-4">
+        <!-- Load product list using loadProducts() method -->
+        <button
+            wire:click="loadProducts"
+            class="px-4 py-2 bg-blue-400 text-white rounded-md hover:bg-blue-700 transition"
+        >
+            <?= $escaper->escapeHtml(__('Show Products')) ?>
+        </button>
+
+        <!-- Toggle a boolean flag -->
+        <button wire:click="$toggle('toggleTextFlag')"
+                class="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition">
+            <?= $escaper->escapeHtml(__('Toggle Text ($toggle)')) ?>
+        </button>
+
+        <!-- Set a specific value to a property -->
+        <button wire:click="$set('toggleTextFlag', true)"
+                class="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition">
+            <?= $escaper->escapeHtml(__('Set Toggle True ($set)')) ?>
+        </button>
+    </div>
+
+    <!-- Display the current title if toggle flag is true -->
+    <?php if ($magewire->toggleTextFlag): ?>
+        <p class="mt-4 text-gray-700 font-medium">
+            <?= $escaper->escapeHtml($magewire->title) ?>
+        </p>
+    <?php endif; ?>
+
+    <!-- Product List -->
+    <ul class="mt-6 space-y-2">
+        <?php foreach ($magewire->products as $product): ?>
+            <li class="flex justify-between p-3 border border-gray-100 rounded-md shadow-sm bg-gray-50">
+                    <span class="font-medium text-gray-800">
+                        <?= $escaper->escapeHtml($product['name']) ?>
+                    </span>
+                <span class="text-gray-600">
+                        <?= $escaper->escapeHtml($product['price']) ?>
+                    </span>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+
+    <hr class="my-4 border-t border-gray-200"/>
+
+    <!-- Section: Name Greeting with init and lazy binding -->
+    <div class="p-6 bg-white rounded shadow space-y-4" wire:init="initGreeting">
+        <!-- Initalizes greeting when this component loads -->
+        <div>
+            <input
+                type="text"
+                wire:model.lazy="customerName"
+                placeholder="Your Name"
+                class="p-2 border border-gray-300 rounded w-full"
+            />
+        </div>
+
+        <!-- Display personalized or default greeting -->
+        <div class="text-gray-800 font-semibold">
+            <?= $escaper->escapeHtml($magewire->greeting) ?>
+        </div>
+
+        <!-- Clear the greeting text via Magewire method -->
+        <div>
+            <button
+                wire:click="clearGreeting"
+                class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
+                Clear Greeting (wire:click)
+            </button>
+        </div>
+
+        <hr class="my-4 border-t border-gray-200"/>
+
+        <!-- Section: Update Property Handler (e.g. myProp) -->
+        <div class="p-4 space-y-4">
+            <input
+                type="text"
+                wire:model="myProp"
+                class="border border-gray-300 p-2 rounded w-full"
+                placeholder="Type to trigger updatedMyProp()"
+
+            />
+
+            <div class="mt-4 text-gray-700">
+                Current value: <strong><?= $escaper->escapeHtml($magewire->myProp) ?></strong>
+            </div>
+        </div>
+
+        <hr class="my-4 border-t border-gray-200"/>
+
+        <!-- Section: Magic Property Access -->
+        <div class="text-sm text-gray-700">
+            <!-- Access the property directly -->
+            <p><strong>Using direct access:</strong> <?= $escaper->escapeHtml($magewire->myProp) ?></p>
+
+            <!-- Access using a defined getter method -->
+            <p><strong>Via magic getter:</strong> <?= $escaper->escapeHtml($magewire->getMyProp()) ?></p>
+
+            <!-- Use 'has' method to check if a property is set -->
+            <p><strong>Magic "has method":</strong> <?= $magewire->hasMyProp() ? 'true' : 'false' ?></p>
+        </div>
+
+        <hr class="my-4 border-t border-gray-200"/>
+
+        <!-- Section: Working with nested array properties -->
+        <div class="space-y-4">
+            <!-- Two-way binding to a nested array -->
+        </div>
+        <input
+            type="text"
+            wire:model="address.street"
+            placeholder="Street"
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+        />
+
+        <!-- Sets address.street via magewire directive -->
+        <button
+            wire:click="$set('address.street', 'Bag End')"
+            class="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+        >
+            Correct Street to Bag End
+        </button>
+
+        <!-- Output the values of address fields -->
+        <div class="mt-4 text-gray-700">
+            <strong>$magewire->address output:</strong>
+        </div>
+
+        <?php foreach ($magewire->address as $address): ?>
+            <?= $escaper->escapeHtml($address) . '<br>' ?>
+        <?php endforeach; ?>
+
+        <hr class="my-4 border-t border-gray-200"/>
+
+        <!-- Section: EmitTo Example  -->
+        <p class="font-semibold text-gray-800">EmitTo Example</p>
+
+        <button
+            wire:click="sendTitle"
+            class="ml-4 mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
+            <?= $escaper->escapeHtml('Send new title to another component ') ?>
+        </button>
+
+    </div>
+
+    <div x-data>
+        <button @click="$wire.set('title','AlpineJS Test Title')">Set Title</button>
+        <button @click="$wire.updatedCustomerName('AlpineJS Oksana')">Call updatedCustomerName and update with AlpineJS</button>
+    </div>
+
+</div>
+
+<script>
+    // Magewire.find('magewire.examples'); This will not work, becuase Magewire is not loaded in this time on the page
+
+    // Ensure Magewire is initalized
+    /*document.addEventListener('magewire:load', () => {
+       console.log('Magewire loaded');
+
+       const myComponent =  Magewire.find('magewire.examples');
+
+       console.log(myComponent);
+
+       myComponent.set('title', 'Test title');
+       myComponent.call('updatedCustomerName','John');
+    });*/
+</script>
+
